@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Mr Aadil Patel Official - Time Table Life Fast</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;
+ font-family:Arial,sans-serif;
+ background:#f3f6fb;
+ color:#172033;
+}
+header{
+ background:linear-gradient(135deg,#182848,#4b6cb7);
+ color:white;
+ padding:22px 15px;
+ text-align:center;
+}
+header h1{margin:0;font-size:23px}
+header p{margin:7px 0 0;font-size:13px}
+
+.clock{
+ text-align:center;
+ background:white;
+ margin:12px;
+ padding:15px;
+ border-radius:15px;
+ box-shadow:0 3px 12px #0001;
+}
+#time{font-size:30px;font-weight:bold}
+#date{margin-top:5px;color:#667}
+
+.tabs{
+ display:flex;
+ gap:7px;
+ padding:10px;
+ overflow-x:auto;
+}
+.tabs button{
+ border:0;
+ padding:11px 18px;
+ border-radius:20px;
+ background:white;
+ font-weight:bold;
+ white-space:nowrap;
+}
+.tabs button.active{
+ background:#3155a6;
+ color:white;
+}
+
+.section{
+ margin:10px 12px;
+ background:white;
+ border-radius:16px;
+ padding:15px;
+ box-shadow:0 3px 12px #0001;
+}
+.section h2{
+ margin:0 0 12px;
+ font-size:19px;
+}
+.card{
+ padding:12px;
+ margin:8px 0;
+ border-radius:12px;
+ background:#f5f7fb;
+ border-left:5px solid #3155a6;
+}
+.card b{display:block}
+.card small{color:#667}
+
+.progress{
+ height:15px;
+ background:#e5e8ef;
+ border-radius:20px;
+ overflow:hidden;
+}
+#bar{
+ height:100%;
+ width:0%;
+ background:#3155a6;
+ transition:.3s;
+}
+.percent{
+ text-align:center;
+ font-weight:bold;
+ margin:8px;
+}
+
+.task{
+ display:flex;
+ align-items:center;
+ gap:10px;
+ padding:11px 5px;
+ border-bottom:1px solid #eee;
+}
+.task input{width:20px;height:20px}
+.done{text-decoration:line-through;color:#999}
+
+.hidden{display:none}
+
+.info{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:10px;
+}
+.info div{
+ background:#f5f7fb;
+ padding:12px;
+ border-radius:12px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Mr Aadil Patel Official</h1>
+<p>TIME TABLE • LIFE FAST</p>
+</header>
+
+<div class="clock">
+<div id="time">00:00:00</div>
+<div id="date">Loading...</div>
+</div>
+
+<div class="tabs">
+<button class="active" onclick="showPage('today',this)">Today</button>
+<button onclick="showPage('week',this)">Week</button>
+<button onclick="showPage('month',this)">Month</button>
+<button onclick="showPage('year',this)">Year</button>
+<button onclick="showPage('qualification',this)">Qualification</button>
+</div>
+
+<!-- TODAY -->
+<div id="today" class="page">
+
+<div class="section">
+<h2>📅 Today's Qualification</h2>
+
+<div class="info">
+<div><b id="todayDate">--</b><small>Date</small></div>
+<div><b id="todayDay">--</b><small>Day</small></div>
+</div>
+
+<div class="percent">
+Today's Progress: <span id="percent">0%</span>
+</div>
+<div class="progress"><div id="bar"></div></div>
+</div>
+
+<div class="section">
+<h2>⏰ Today's Time Table</h2>
+<div id="tasks"></div>
+</div>
+
+</div>
+
+<!-- WEEK -->
+<div id="week" class="page hidden">
+<div class="section">
+<h2>📆 Weekly Details</h2>
+<p>Monday – Sunday</p>
+<p>Daily timetable follows the same routine.</p>
+<div class="card">📖 Quran — Daily</div>
+<div class="card">📚 Study — Daily</div>
+<div class="card">🕌 Madrasa — Daily</div>
+<div class="card">🏃 Exercise — Daily</div>
+<div class="card">🎤 Taqreer — Daily</div>
+</div>
+</div>
+
+<!-- MONTH -->
+<div id="month" class="page hidden">
+<div class="section">
+<h2>🗓️ Monthly Details</h2>
+<div class="info">
+<div><b id="monthName">--</b><small>Month</small></div>
+<div><b id="monthDays">--</b><small>Total Days</small></div>
+</div>
+<br>
+<div class="card">
+<b>Monthly Target</b>
+Study + Quran + Madrasa + Mutala + Taqreer + Exercise
+</div>
+</div>
+</div>
+
+<!-- YEAR -->
+<div id="year" class="page hidden">
+<div class="section">
+<h2>📅 Yearly Details</h2>
+<div class="card">
+<b id="yearName">2026</b>
+Year
+</div>
+<div class="card">
+<b>Life Fast Target</b>
+Consistency • Knowledge • Discipline • Fitness
+</div>
+</div>
+</div>
+
+<!-- QUALIFICATION -->
+<div id="qualification" class="page hidden">
+<div class="section">
+<h2>🎓 Qualification</h2>
+
+<div class="card">
+<b>BAOU B.A.</b>
+Sociology
+</div>
+
+<div class="card">
+<b>Current Study</b>
+B.A. First Year
+</div>
+
+<div class="card">
+<b>Subjects</b>
+Gujarati • English • Sociology
+</div>
+
+<div class="card">
+<b>Goal</b>
+Teacher • Competitive Exams • Higher Education
+</div>
+
+</div>
+</div>
+
+<script>
+
+const schedule=[
+
+["5:45 AM","ઉઠવું"],
+["5:55 AM","નમાજ"],
+["6:10 AM","Qur'an"],
+["6:40 AM","ચા"],
+["6:50 AM","મદ્રસા"],
+["11:30 AM","ચા"],
+["11:45 AM","Study B.A. All Period"],
+["1:00 PM","ખાવું + ઊંઘ"],
+["1:55 PM","નમાજ"],
+["2:10 PM","Study Mutala B.A."],
+["2:35 PM","મદ્રસા"],
+["5:40 PM","ચા"],
+["5:50 PM","Exercise"],
+["6:10 PM","Bath"],
+["6:20 PM","મદ્રસા"],
+["10:30 PM","નમાજ"],
+["10:45 PM","Study Taqreer"],
+["11:20 PM","Study S All Period + Mutala"],
+["12:00 AM","સૂવું"]
+
+];
+
+const tasks=document.getElementById("tasks");
+
+schedule.forEach((item,i)=>{
+
+ let div=document.createElement("div");
+ div.className="task";
+
+ let check=document.createElement("input");
+ check.type="checkbox";
+ check.id="task"+i;
+
+ let label=document.createElement("label");
+ label.innerHTML="<b>"+item[0]+"</b>"+item[1];
+ label.htmlFor="task"+i;
+
+ check.addEventListener("change",()=>{
+   saveTasks();
+   updateProgress();
+   label.classList.toggle("done",check.checked);
+ });
+
+ div.appendChild(check);
+ div.appendChild(label);
+ tasks.appendChild(div);
+
+});
+
+function saveTasks(){
+ let data=[];
+ schedule.forEach((x,i)=>{
+   data.push(document.getElementById("task"+i).checked);
+ });
+ localStorage.setItem("aadilTasks",JSON.stringify(data));
+}
+
+function loadTasks(){
+
+ let data=JSON.parse(localStorage.getItem("aadilTasks")||"[]");
+
+ data.forEach((v,i)=>{
+   let check=document.getElementById("task"+i);
+   if(check){
+     check.checked=v;
+     check.nextElementSibling.classList.toggle("done",v);
+   }
+ });
+
+ updateProgress();
+}
+
+function updateProgress(){
+
+ let total=schedule.length;
+ let done=0;
+
+ schedule.forEach((x,i)=>{
+   if(document.getElementById("task"+i).checked) done++;
+ });
+
+ let percent=Math.round(done/total*100);
+
+ document.getElementById("percent").innerText=percent+"%";
+ document.getElementById("bar").style.width=percent+"%";
+}
+
+function updateClock(){
+
+ let now=new Date();
+
+ let time=now.toLocaleTimeString("en-IN",{
+   hour12:true,
+   hour:"2-digit",
+   minute:"2-digit",
+   second:"2-digit"
+ });
+
+ let date=now.toLocaleDateString("en-IN",{
+   weekday:"long",
+   day:"2-digit",
+   month:"long",
+   year:"numeric"
+ });
+
+ document.getElementById("time").innerText=time;
+ document.getElementById("date").innerText=date;
+
+ document.getElementById("todayDate").innerText=
+   now.toLocaleDateString("en-IN");
+
+ document.getElementById("todayDay").innerText=
+   now.toLocaleDateString("en-IN",{weekday:"long"});
+
+ document.getElementById("monthName").innerText=
+   now.toLocaleDateString("en-IN",{month:"long"});
+
+ document.getElementById("monthDays").innerText=
+   new Date(now.getFullYear(),now.getMonth()+1,0).getDate();
+
+ document.getElementById("yearName").innerText=
+   now.getFullYear();
+}
+
+function showPage(page,button){
+
+ document.querySelectorAll(".page")
+ .forEach(x=>x.classList.add("hidden"));
+
+ document.getElementById(page)
+ .classList.remove("hidden");
+
+ document.querySelectorAll(".tabs button")
+ .forEach(x=>x.classList.remove("active"));
+
+ button.classList.add("active");
+}
+
+updateClock();
+setInterval(updateClock,1000);
+loadTasks();
+
+</script>
+
+</body>
+</html>
